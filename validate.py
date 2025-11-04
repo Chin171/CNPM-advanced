@@ -48,17 +48,35 @@ class HocPhan:
                 "ly_do": ["Đạt học phần"]
             }
 
-# Ví dụ sử dụng
+
+# Chương trình chính (nhập dữ liệu từ người dùng)
 if __name__ == "__main__":
+    print("=== TÍNH ĐIỂM HỌC PHẦN SINH VIÊN ===")
+
+    # Nhập thông tin từ bàn phím
+    so_buoi_hoc = int(input("Nhập tổng số buổi học: "))
+    so_buoi_nghi = int(input("Nhập số buổi nghỉ: "))
+    diem_thanh_phan = float(input("Nhập điểm thành phần: "))
+    diem_cuoi_ky = float(input("Nhập điểm cuối kỳ: "))
+    vi_pham_input = input("Có vi phạm quy chế thi không (y/n)? ").strip().lower()
+    vi_pham_quy_che = vi_pham_input in ["y", "yes", "có", "co"]
+
+    # Tạo đối tượng học phần và kiểm tra kết quả
     sv = HocPhan(
-        so_buoi_hoc=30,
-        so_buoi_nghi=5,
-        diem_thanh_phan=6.0,
-        diem_cuoi_ky=5.5,
-        vi_pham_quy_che=False
+        so_buoi_hoc=so_buoi_hoc,
+        so_buoi_nghi=so_buoi_nghi,
+        diem_thanh_phan=diem_thanh_phan,
+        diem_cuoi_ky=diem_cuoi_ky,
+        vi_pham_quy_che=vi_pham_quy_che
     )
 
     ket_qua = sv.kiem_tra_dat_mon()
-    print("Kết quả:", "ĐẠT" if ket_qua["dat_mon"] else "KHÔNG ĐẠT")
+
+    # Hiển thị kết quả
+    print("\n=== KẾT QUẢ ===")
     print("Điểm trung bình:", ket_qua["diem_trung_binh"])
+    if ket_qua["dat_mon"]:
+        print("🎉 KẾT LUẬN: ĐẠT HỌC PHẦN")
+    else:
+        print("❌ KẾT LUẬN: KHÔNG ĐẠT HỌC PHẦN")
     print("Chi tiết:", "; ".join(ket_qua["ly_do"]))
