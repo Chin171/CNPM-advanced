@@ -1,1 +1,8 @@
 Mô tả yêu cầu hệ thống
+Tính năng: tính điểm học phần cho sinh viên
+Ràng buộc:
+- Số buổi nghỉ học =< 20% 
+- Điểm trung bình môn >= 5
+- Điểm thành phần >0
+- Điểm cuối kỳ >=4
+- Không vi phạm quy chế thi
