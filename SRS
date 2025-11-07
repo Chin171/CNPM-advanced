@@ -1,8 +1,12 @@
 Mô tả yêu cầu hệ thống
 Tính năng: tính điểm học phần cho sinh viên
-Ràng buộc:
-- Số buổi nghỉ học =< 20% 
-- Điểm trung bình môn >= 5
-- Điểm thành phần >0
-- Điểm cuối kỳ >=4
+Một sinh viên được tính là hoàn thành học phần khi và chỉ khi đạt được tất cả các yêu cầu sau:
+- Tổng số buổi nghỉ học trong cả học phần =< 20% tổng số buổi học của học phần 
+- Điểm chuyên cần (CC) >0
+- Điểm giữa kì (GK) >0
+- Điểm cuối kỳ (CK) >=4
+- Điểm tổng kết trung bình môn (TB) >= 4.0 
+  Công thức tính điểm trung bình môn: TB = 0.1*CC + 0.3*TP + 0.6*CK
+  Làm tròn round, 0.1
+- Các điểm tính theo hệ số 10, điểm thành phần (CC, GK, CK) bước nhảy 0.25
 - Không vi phạm quy chế thi
