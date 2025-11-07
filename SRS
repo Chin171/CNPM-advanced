@@ -1,5 +1,7 @@
 Mô tả yêu cầu hệ thống
 Tính năng: tính điểm học phần cho sinh viên
+Mục tiêu: tính điểm trung bình môn học của sinh viên tự động và phân loại kết quả đạt hoặc không đạt cho sinh viên
+Actor: giảng viên, quản lý đào tạo
 Một sinh viên được tính là hoàn thành học phần khi và chỉ khi đạt được tất cả các yêu cầu sau:
 - Tổng số buổi nghỉ học trong cả học phần =< 20% tổng số buổi học của học phần 
 - Điểm chuyên cần (CC) >0
