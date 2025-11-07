@@ -1,42 +1,52 @@
-class TestValidateEquivalence(unittest.TestCase):
+import unittest
+from student_score import is_valid_float, calculate_final_score
 
-    def test_valid_all_conditions(self):
-        """Lớp hợp lệ: tất cả điều kiện đạt"""
-        passed, total, reasons = validate(10, 1, 6, 6, "no")
-        self.assertTrue(passed)
-        self.assertTrue(isclose(total, 6.0))
+class TestEquivalencePartition(unittest.TestCase):
+    # ---- is_valid_float() ----
+    def test_invalid_non_number(self):
+        self.assertFalse(is_valid_float("abc")[0])
 
-    def test_invalid_total_sessions(self):
-        """Lớp không hợp lệ: total_sessions <= 0"""
-        with self.assertRaises(ValueError):
-            validate(0, 0, 5, 5, "no")
+    def test_invalid_negative(self):
+        self.assertFalse(is_valid_float(-0.25)[0])
 
-    def test_invalid_absent_sessions(self):
-        """Lớp không hợp lệ: absent_sessions >= 20%"""
-        passed, total, reasons = validate(10, 2, 6, 6, "no")
-        self.assertFalse(passed)
-        self.assertIn("Too many absences", reasons)
+    def test_invalid_over_10(self):
+        self.assertFalse(is_valid_float(10.25)[0])
 
-    def test_invalid_coursework_zero(self):
-        """Lớp không hợp lệ: coursework_score = 0"""
-        passed, total, reasons = validate(10, 1, 0, 6, "no")
-        self.assertFalse(passed)
-        self.assertIn("Coursework score is zero", reasons)
+    def test_valid_normal(self):
+        self.assertTrue(is_valid_float(7.5)[0])
 
-    def test_invalid_final_exam_below_4(self):
-        """Lớp không hợp lệ: final_exam_score < 4"""
-        passed, total, reasons = validate(10, 1, 6, 3, "no")
-        self.assertFalse(passed)
-        self.assertIn("Final exam score below 4", reasons)
+    def test_invalid_not_multiple_025(self):
+        self.assertFalse(is_valid_float(5.1)[0])
 
-    def test_invalid_total_score_below_5(self):
-        """Lớp không hợp lệ: tổng điểm < 5"""
-        passed, total, reasons = validate(10, 1, 4, 4, "no")
-        self.assertFalse(passed)
-        self.assertIn("Total score", " ".join(reasons))
+    def test_invalid_too_many_decimals(self):
+        self.assertFalse(is_valid_float(6.123)[0])
 
-    def test_invalid_violated_rules(self):
-        """Lớp không hợp lệ: violated_rules != 'no'"""
-        passed, total, reasons = validate(10, 1, 6, 6, "yes")
-        self.assertFalse(passed)
-        self.assertIn("Violated rules", reasons)
+    # ---- calculate_final_score() ----
+    def test_total_sessions_zero(self):
+        self.assertFalse(calculate_final_score(0, 0, 5, 5, 5)['pass'])
+
+    def test_absent_over_20_percent(self):
+        self.assertFalse(calculate_final_score(10, 3, 5, 5, 5)['pass'])
+
+    def test_valid_no_violation(self):
+        self.assertTrue(calculate_final_score(10, 2, 5, 5, 5)['pass'])
+
+    def test_cc_zero(self):
+        self.assertFalse(calculate_final_score(10, 0, 0, 5, 5)['pass'])
+
+    def test_gk_zero(self):
+        self.assertFalse(calculate_final_score(10, 0, 5, 0, 5)['pass'])
+
+    def test_ck_less_than_4(self):
+        self.assertFalse(calculate_final_score(10, 0, 5, 5, 3.9)['pass'])
+
+    def test_tb_less_than_4(self):
+        self.assertFalse(calculate_final_score(10, 0, 3, 3, 4)['pass'])
+
+    def test_rule_violation(self):
+        self.assertFalse(calculate_final_score(10, 0, 5, 5, 5, "yes")['pass'])
+
+    def test_all_valid(self):
+        self.assertTrue(calculate_final_score(10, 0, 5, 5, 5, "no")['pass'])
+
+
