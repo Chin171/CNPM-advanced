@@ -9,6 +9,5 @@ Một sinh viên được tính là hoàn thành học phần khi và chỉ khi 
 - Điểm cuối kỳ (CK) >=4
 - Điểm tổng kết trung bình môn (TB) >= 4.0 
   Công thức tính điểm trung bình môn: TB = 0.1*CC + 0.3*TP + 0.6*CK
-  Làm tròn round, 0.1
-- Các điểm tính theo hệ số 10, điểm thành phần (CC, GK, CK) bước nhảy 0.25
+- Các điểm tính theo hệ số 10, điểm thành phần (CC, GK, CK)
 - Không vi phạm quy chế thi
